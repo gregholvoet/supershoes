@@ -32,27 +32,27 @@
     align-items: center;
 }
 
-.hero h1 {
+.hero .h1 {
     text-align: center;
 }
 
-.hero h1 span,
-.hero h1 small {
+.hero .h1 span,
+.hero .h1 small {
     display: inline-block;
     padding: 5px 8px;
 }
 
-.hero h1 small {
+.hero .h1 small {
     font-size: .6em;
 }
 
 @media (min-width: 768px) {
-    .hero h1 {
+    .hero .h1 {
         text-align: left;
         margin-left: -10em;
     }
     
-    .hero h1 small {
+    .hero .h1 small {
         transform: translateY(-.5em);
     }
 }
