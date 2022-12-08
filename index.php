@@ -2,28 +2,34 @@
 <?php get_header(); ?>
 
   <main>
-    <section class="hero" id="home">
+    <section 
+      class="hero" 
+      id="home" 
+      style="background-image: url(<?php echo get_template_directory_uri() .'/'. get_option('header-hero_background-url'); ?>);"
+    >
       <header>
-        <h1 class="visually-hidden">SuperShoes</h1>
+        <h1 class="visually-hidden"><?php echo bloginfo('name'); ?></h1>
         <p class="h1 text-white">
-          <span class="bg-primary">Ici, on répare vos chaussures</span><br>
-          <small class="bg-secondary">pour que vous repartiez du bon pied</small>
+          <span class="bg-primary"><?php echo get_option('header-hero_main-title'); ?></span><br>
+          <small class="bg-secondary"><?php echo get_option('header-hero_under-title'); ?></small>
         </p>
-        <a href="#about" class="please-scroll">Scrollez vers le bas</a>
+        <a href="#about" class="please-scroll"><?php echo get_option('header-hero_scroll-label'); ?></a>
       </header>
     </section>
     <section class="container section about" id="about">
       <div class="row align-items-center">
         <div class="col-md">
+          <?php $aboutSection = get_page_by_title('about'); ?>
           <header>
-            <h2 class="mb-3">Notre entreprise</h2>
+            <h2 class="mb-3"><?php 
+              // echo $aboutSection->post_title; 
+              echo get_post_meta($aboutSection->ID, '_wporg_meta_key')[0];
+            ?></h2>
           </header>
-          <p class="lead">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt reprehenderit hic eligendi assumenda quos animi consequatur tenetur atque nam. Quos aspernatur placeat fuga excepturi veritatis eos eveniet nemo magni facere.
-          </p>
+          <p class="lead"><?php echo $aboutSection->post_content; ?></p>
         </div>
         <div class="col-md">
-          <img class="img-fluid" src="images/about.jpg" alt="cordonnier au travail">
+          <img class="img-fluid" src="<?php echo get_the_post_thumbnail_url($aboutSection->ID, 'medium'); ?>" alt="cordonnier au travail">
         </div>
       </div>
     </section>
@@ -63,12 +69,17 @@
         <h5>On a pas encore de services a vous proposer mais ça arrive !</h5>
       <?php endif; ?>
     </section>
+
     <div class="container section contact" id="contact">
       <header>
         <h2 class="text-center mb-3">Contactez-nous</h2>
       </header>
       <div class="row">
-        <form action="#" class="col-md">
+        <?php
+          $contactPage = get_page_by_title( 'contact' ); // je récupère la page contact
+          echo apply_filters('the_content', $contactPage->post_content); // j'affiche le contenu qui vient de la page contact
+        ?>
+        <!-- <form action="#" class="col-md">
           <p class="form-group">
             <label for="name">Votre nom et prénom</label>
             <input name="name" id="name" type="text" class="form-control">
@@ -89,8 +100,7 @@
           <p class="text-right">
             <button class="btn btn-primary">Envoyer</button>
           </p>
-        </form>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10987.242951252556!2d4.37044401754503!3d50.85271187329156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c370c43d6195%3A0x94b0e4b9ad97de02!2sHaute%20%C3%89cole%20ISFSC!5e0!3m2!1sfr!2sbe!4v1602328508492!5m2!1sfr!2sbe" class="col-md-8 contact-map" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </form> -->
       </div>
     </div>
   </main>
